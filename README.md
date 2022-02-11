@@ -56,3 +56,4 @@ module.close()
 # Source
 
 The source for this library is available on [github](https://github.com/devantech/devantech_eth_python)
+Documentation can be read [here](https://devantech.github.io/devantech_eth_python/devantech_eth.html)
