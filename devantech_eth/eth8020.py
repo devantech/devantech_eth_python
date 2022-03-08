@@ -24,7 +24,7 @@ class ETH8020(module_socket.ModuleSocket):
         Returns:
             array: Bytes indicating the states of the outputs.
         """
-        self.write("\x24")
+        self.write(b'\x24')
         d = self.read(3)
         return d
 
@@ -35,7 +35,7 @@ class ETH8020(module_socket.ModuleSocket):
         Returns:
             array: Bytes indicating the states of the outputs.
         """
-        self.write("\x25")
+        self.write(b'\x25')
         d = self.read(3)
         return d
 
@@ -48,7 +48,7 @@ class ETH8020(module_socket.ModuleSocket):
         """
         message = "\x32"
         message += chr(port)
-        self.write(message)
+        self.write(bytes(message, "utf-8"))
         d = self.read(2)
         return d
 
@@ -163,7 +163,7 @@ class ETH8020(module_socket.ModuleSocket):
         Returns:
             array: Bytes indicating the states of the outputs.
         """
-        self.write("\x25")
+        self.write(b'\x25')
         d = self.read(2)
         return d
 

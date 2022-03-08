@@ -24,7 +24,7 @@ class ETH008(module_socket.ModuleSocket):
         Returns:
             array: Bytes indicating the states of the outputs.
         """
-        self.write("\x24")
+        self.write(b'\x24')
         d = self.read(1)
         return d
 

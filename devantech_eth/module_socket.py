@@ -64,7 +64,7 @@ class ModuleSocket:
             message (string): The data to write.
         """
         try:
-            self.socket.sendall(message.encode())
+            self.socket.sendall(message)
         except:
             raise
             
@@ -98,7 +98,7 @@ class ModuleSocket:
         Returns:
             bool: true if the correct module is found false otherwise.
         """
-        self.write("\x10")
+        self.write(b'\x10')
         d = self.read(3)
         if d[0] != self.module_id:
             return False
@@ -111,7 +111,7 @@ class ModuleSocket:
         Returns:
             bool: True if the password is enabled, false otherwise.
         """
-        self.write("\x7a")
+        self.write(b'\x7a')
         d = self.read(1)
         if d[0] == 0:
             return True
@@ -124,7 +124,7 @@ class ModuleSocket:
         Returns:
             bool: True is accepted, false otherwise.
         """
-        pw = "\x79" + self.password
+        pw = b'\x79' + bytes(self.password, "ascii")
         self.write(pw)
         d = self.read(1)
         if d[0] != 1:
@@ -135,7 +135,7 @@ class ModuleSocket:
         """
         Logs out of the module.
         """
-        self.write("\x7b")
+        self.write(b'\x7b')
         d = self.read(1)
     
     def getSerialNumber(self):
@@ -145,7 +145,7 @@ class ModuleSocket:
         Returns:
             array: The 5 byte mac address read back from the module.
         """
-        self.write("\x77")
+        self.write(b'\x77')
         return self.read(6)
 
     def getVolts(self):
@@ -155,7 +155,7 @@ class ModuleSocket:
         Returns:
             float: the voltage.
         """
-        self.write("\x78")
+        self.write(b'\x78')
         d = self.read(1)
         vl = d[0] / 10
         return vl
@@ -167,7 +167,7 @@ class ModuleSocket:
         Returns:
             array: the module ID, hardware and firmware versions.
         """
-        self.write("\x10")
+        self.write(b'\x10')
         d = self.read(3)
         return d
 
@@ -212,7 +212,7 @@ class ModuleSocket:
         message = "\x20"
         message += chr(port)
         message += chr(pulse)
-        self.write(message)
+        self.write(bytes(message, "utf-8"))
         d = self.read(1)
                 
     def digitalInactive(self, port, pulse):
@@ -226,7 +226,7 @@ class ModuleSocket:
         message = "\x21"
         message += chr(port)
         message += chr(pulse)
-        self.write(message)
+        self.write(bytes(message, "utf-8"))
         d = self.read(1)
 
     def setDigitalState(self, port, pulse, state):
